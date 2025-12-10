@@ -29,7 +29,7 @@ def learn_from_deck():
             if a == card["answer"]:
                 correct += 1
                 print(f"Correct!")
-                card["level"] = str((int(card["level"]) + 1))
+                card["level"] = str(min(int(card["level"]) + 1, 5))
 
             card["answered"] = True
 
@@ -40,7 +40,7 @@ def learn_from_deck():
             else:
                 print(f"Wrong! the answer is {card['answer']}")
                 # I want to decrease the Level in the row
-                card["level"] = str((int(card["level"]) - 1))
+                card["level"] = str(max(int(card["level"]) - 1, 5))
     #save progress after the session
     with open(deck_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=HEADERS)
