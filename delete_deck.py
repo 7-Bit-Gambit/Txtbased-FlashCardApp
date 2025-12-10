@@ -5,6 +5,7 @@ def delete_deck():
     if deck is None:
         return
 
+    print("Deleting a deck... ", deck.stem)
     deck.unlink()
 
 
