@@ -1,6 +1,7 @@
 import csv
 from config import DECK_DIRECTORY, HEADERS
 from deck_selector import choose_deck_helper
+from datahandlers import save_deck
 
 def learn_from_deck():
     deck_path = choose_deck_helper()
@@ -10,12 +11,6 @@ def learn_from_deck():
 
     print(f"\nOpening deck: {deck_path.stem}")
 
-    name = input("Enter the deck you would like to open: ").strip().lower()
-    deck_path = DECK_DIRECTORY / f"{name}.csv"
-    if not deck_path.exists():
-        print("Deck not found.")
-        return
-    
     #read deck
     with open(deck_path, "r", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -40,17 +35,7 @@ def learn_from_deck():
                 # I want to decrease the Level in the row
                 card["level"] = str((int(card["level"]) - 1))
     #save progress after the session
-    with open(deck_path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=HEADERS)
-        writer.writeheader()
-        for c in cards:
-
-            # ensure only known columns are written
-            writer.writerow({
-                "question": c["question"],
-                "answer": c["answer"],
-                "level": c["level"],
-            })
+    save_deck(deck_path, cards)
 
     print("Progress saved.")
     print(f"You got {correct} out of {len(cards)} correct!")
