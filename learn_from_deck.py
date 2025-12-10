@@ -1,7 +1,7 @@
 import csv
 from config import DECK_DIRECTORY, HEADERS
 from deck_selector import choose_deck_helper
-
+from datahandlers import save_deck
 def learn_from_deck():
     deck_path = choose_deck_helper()
     if deck_path is None:
