@@ -21,7 +21,12 @@ def learn_from_deck():
         reader = csv.DictReader(f)
         cards = [row for row in reader if row["question"] and row["answer"] and row ["level"]]
         correct = 0
+        #answered flag
+        for c in cards:
+            c["answered"] = False
 
+        import random
+        random.shuffle(cards)
         for i, card in enumerate(cards, start=1):
             print(f"\n[{i}/{len(cards)}] Q: {card['question']}")
             a = input("What's the answer? ")
@@ -31,7 +36,9 @@ def learn_from_deck():
                 print(f"Correct!")
                 card["level"] = str((int(card["level"]) + 1))
 
-            elif a == "":
+            card["answered"] = True
+
+            if a == "":
                 print("learning session has been terminated")
                 break
 
@@ -51,7 +58,9 @@ def learn_from_deck():
                 "answer": c["answer"],
                 "level": c["level"],
             })
-
+    answered_count = sum(1 for c in cards if c["answered"])
+    unanswered_count = len(cards) - answered_count
     print("Progress saved.")
     print(f"You got {correct} out of {len(cards)} correct!")
+    print(f"  • Unanswered: {unanswered_count} (not rated)")
     print("Returning to main menu")

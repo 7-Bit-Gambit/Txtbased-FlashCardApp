@@ -2,12 +2,13 @@ from config import list_deck_paths
 
 def choose_deck_helper():
     while True:
-        decks = list_deck_paths()
+        decks = list(list_deck_paths())
+
         if not decks:
             print("No decks found.")
             return None
 
-        print("Available decks:")
+        print("These are the available decks:")
         for i, d in enumerate(decks, start=1):
             print(f"{i}. {d.stem}")
 
