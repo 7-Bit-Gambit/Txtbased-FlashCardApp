@@ -3,11 +3,12 @@ from config import DECK_DIRECTORY, HEADERS
 from deck_selector import choose_deck_helper
 
 def learn_from_deck():
-    print("These are the available decks:")
-    decks = sorted(file.stem for file in DECK_DIRECTORY.glob("*.csv"))
-    if not decks:
-        print("No decks found. Please create one first.")
+    deck_path = choose_deck_helper()
+    if deck_path is None:
+        print("No deck selected. Returning to main menu.")
         return
+
+    print(f"\nOpening deck: {deck_path.stem}")
 
     name = input("Enter the deck you would like to open: ").strip().lower()
     deck_path = DECK_DIRECTORY / f"{name}.csv"
