@@ -10,12 +10,7 @@ def learn_from_deck():
 
     print(f"\nOpening deck: {deck_path.stem}")
 
-    name = input("Enter the deck you would like to open: ").strip().lower()
-    deck_path = DECK_DIRECTORY / f"{name}.csv"
-    if not deck_path.exists():
-        print("Deck not found.")
-        return
-    
+
     #read deck
     with open(deck_path, "r", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
