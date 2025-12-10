@@ -2,7 +2,6 @@ import csv
 from config import DECK_DIRECTORY, HEADERS
 
 def learn_from_deck():
-    """learn from an existing deck file"""
     decks = sorted(file.stem for file in DECK_DIRECTORY.glob("*.csv"))
     if not decks:
         print("No decks found. Please create one first.")

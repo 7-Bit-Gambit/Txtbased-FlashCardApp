@@ -6,7 +6,6 @@ from learn_from_deck import learn_from_deck
 
 
 def main_menu():
-    """Main menu for the application"""
     #Insert a check if files are available -> if no then...
     while True:
         print("what would you like to do today?")

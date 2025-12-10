@@ -2,7 +2,6 @@ import csv
 from config import DECK_DIRECTORY, HEADERS
 
 def create_deck():
-    """create a new deck file"""
     raw_name=input("Name your deck:").strip().lower()
     if not raw_name:
         print("Deck creation cancelled.")
