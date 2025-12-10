@@ -13,7 +13,7 @@ def check_knowledge_level():
                     reader = csv.DictReader(f)
                     levels = []
                     for row in reader:
-                        if row.get("level") and row.get("level").isdigit():
+                        if row.get("level") and row.get("level"):
                             levels.append(int(row["level"]))
 
                     if levels:

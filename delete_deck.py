@@ -1,12 +1,11 @@
-from config import DECK_DIRECTORY
+from deck_selector import choose_deck_helper
 
 def delete_deck():
-    decks = sorted(file.stem for file in DECK_DIRECTORY.glob("*.csv"))
-    print("These are the available decks:", decks)
-    raw_name = input("What deck do you want to delete?").strip().lower()
-    file_path = DECK_DIRECTORY / f"{raw_name}.csv"
-    if file_path.exists():
-        file_path.unlink()
-        print("File deleted.")
-    else:
-        print("File not found.")
+    deck = choose_deck_helper()
+    if deck is None:
+        return
+
+    deck.unlink()
+
+
+

@@ -1,14 +1,15 @@
+add datahandler.py
+
 In check level
-  is digit will trow an error if a card has a negative level ie. (-1)
-    Do we allow negatives? - Decision Required
-    Error handling required:
-        try:
-        except
+Select deck?
+
 
 in learning
   We should clearly state that only the "answered" cards are updated
     Like
         “Session terminated. Progress on answered cards has been saved; untouched cards are unchanged.”
+
+Ignore case sensitiveity
 
 Overal
   Deck listing can be functionalized?
