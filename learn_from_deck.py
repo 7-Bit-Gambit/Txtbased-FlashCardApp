@@ -14,7 +14,13 @@ def learn_from_deck():
     #read deck
     with open(deck_path, "r", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        cards = [row for row in reader if row["question"] and row["answer"] and row ["level"]]
+        cards = [
+            row for row in reader
+            if row.get("question")
+               and row.get("answer")
+               and row.get("level")
+               and int(row["level"]) < 5  # <-- NEW: ignore maxed-out cards
+        ]
         correct = 0
         #answered flag
         for c in cards:
@@ -42,20 +48,8 @@ def learn_from_deck():
                 # I want to decrease the Level in the row
                 card["level"] = str(max(int(card["level"]) - 1, 5))
     #save progress after the session
-    with open(deck_path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=HEADERS)
-        writer.writeheader()
-        for c in cards:
+    save_deck(deck_path, cards)
 
-            # ensure only known columns are written
-            writer.writerow({
-                "question": c["question"],
-                "answer": c["answer"],
-                "level": c["level"],
-            })
-    answered_count = sum(1 for c in cards if c["answered"])
-    unanswered_count = len(cards) - answered_count
     print("Progress saved.")
     print(f"You got {correct} out of {len(cards)} correct!")
-    print(f"  • Unanswered: {unanswered_count} (not rated)")
     print("Returning to main menu")
