@@ -1,5 +1,4 @@
-from deck_selector import choose_deck_helper
-from deck_helpers import read_deck, save_deck
+from deck_helpers import read_deck, save_deck, choose_deck_helper
 import random
 
 def learn_from_deck():

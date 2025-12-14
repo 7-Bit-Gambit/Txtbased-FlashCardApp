@@ -1,5 +1,3 @@
-import csv  # still needed if you use csv elsewhere
-
 from card_helpers import add_cards_loop
 from config import DECK_DIRECTORY
 from deck_helpers import save_deck

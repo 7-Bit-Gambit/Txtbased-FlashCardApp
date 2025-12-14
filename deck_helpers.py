@@ -1,6 +1,5 @@
 import csv
 from config import HEADERS
-from deck_selector import choose_deck_helper
 from config import list_deck_paths
 
 def read_deck(deck_path):
@@ -11,7 +10,6 @@ def read_deck(deck_path):
             if row.get("question")
                and row.get("answer")
                and row.get("level")
-               and int(row["level"]) < 5  # <-- NEW: ignore maxed-out cards
         ]
         return cards
 

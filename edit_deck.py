@@ -1,6 +1,5 @@
 from card_helpers import add_cards_loop
-from deck_selector import choose_deck_helper
-from deck_helpers import read_deck, save_deck
+from deck_helpers import read_deck, save_deck, choose_deck_helper
 
 def _print_cards(cards, max_len=60):
     if not cards:
