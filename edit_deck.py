@@ -14,7 +14,7 @@ def _print_cards(cards, max_len=60):
             q = q[:max_len - 1] + "…"
         if len(a) > max_len:
             a = a[:max_len - 1] + "…"
-        print(f"{i:>3}. Q: {q} | A: {a} | lvl: {c['level']}")
+        print(f"{i:>3}. Q: {q} | A: {a}")
     print()
 
 def _select_card_index(cards, prompt):
