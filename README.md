@@ -31,8 +31,7 @@ Installation
 	?  main.py
 	?  config.py
 	?  create_deck.py
-	?  delete_deck.py
-	?  deck_selector.py
+	?  deck_helpers.py
 	?  learn_from_deck.py
 	?  datahandlers.py
 	?  check_knowledge_level.py
@@ -61,7 +60,7 @@ What would you like to do today?
 
 Project Structure
 -----------------
-flashcard_app/
+```flashcard_app/
 │
 ├── main.py
 ├── config.py
@@ -76,6 +75,7 @@ flashcard_app/
 │
 └── decks/
     ├── example_deck.csv
+```
 License
 -------
 No formal license specified. Intended for academic use.
