@@ -1,28 +1,7 @@
-In check level
-  is digit will trow an error if a card has a negative level ie. (-1)
-    Do we allow negatives? - Decision Required
-    Error handling required:
-        try:
-        except
 
-in learning
-  We should clearly state that only the "answered" cards are updated
-    Like
-        “Session terminated. Progress on answered cards has been saved; untouched cards are unchanged.”
-
-Overal
-  Deck listing can be functionalized?
-  Should we work with numbered lists for deck selection?
-    Improves UX
-      Idea:
-        enumerate decks
-          select deck by number not by name
-
-To be implemented:
-  must:
-  Randomize questions
 
   nice to have:
-  Deck editor
-  don't ask cards with a high level
+  Deck editor if we do this the read deck in learn_from_deck has to be functionalized
+
+  don't ask cards with a high level level cap?
 

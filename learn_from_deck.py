@@ -1,54 +1,44 @@
-import csv
-from config import DECK_DIRECTORY, HEADERS
+from deck_helpers import read_deck, save_deck, choose_deck_helper
+import random
 
 def learn_from_deck():
-    decks = sorted(file.stem for file in DECK_DIRECTORY.glob("*.csv"))
-    if not decks:
-        print("No decks found. Please create one first.")
+    deck_path = choose_deck_helper()
+    if deck_path is None:
+        print("No deck selected. Returning to main menu.")
         return
-    print("These are the available decks:", decks)
-    name = input("Enter the deck you would like to open: ").strip().lower()
-    deck_path = DECK_DIRECTORY / f"{name}.csv"
-    if not deck_path.exists():
-        print("Deck not found.")
+
+    print(f"\nOpening deck: {deck_path.stem}")
+
+    cards = read_deck(deck_path)
+
+    # filter only for this session
+    learn_cards = [c for c in cards if int(c["level"]) < 5]
+
+    if not learn_cards:
+        print("All cards are already at level 5. Nothing to learn 🎉")
         return
-    
-    #read deck
-    with open(deck_path, "r", newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        cards = [row for row in reader if row["question"] and row["answer"] and row ["level"]]
-        correct = 0
 
-        for i, card in enumerate(cards, start=1):
-            print(f"\n[{i}/{len(cards)}] Q: {card['question']}")
-            a = input("What's the answer? ")
+    random.shuffle(learn_cards)
+    correct = 0
 
-            if a == card["answer"]:
-                correct += 1
-                print(f"Correct!")
-                card["level"] = str((int(card["level"]) + 1))
+    for i, card in enumerate(learn_cards, start=1):
+        print(f"\n[{i}/{len(learn_cards)}] Q: {card['question']}")
+        a = input("What's the answer? ").strip()
 
-            elif a == "":
-                print("learning session has been terminated")
-                break
+        if a == "":
+            print("Learning session terminated.")
+            break
 
-            else:
-                print(f"Wrong! the answer is {card['answer']}")
-                # I want to decrease the Level in the row
-                card["level"] = str((int(card["level"]) - 1))
-    #save progress after the session
-    with open(deck_path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=HEADERS)
-        writer.writeheader()
-        for c in cards:
+        if a == card["answer"]:
+            correct += 1
+            print("Correct!")
+            card["level"] = str(min(int(card["level"]) + 1, 5))
+        else:
+            print(f"Wrong! The answer is {card['answer']}")
+            card["level"] = str(max(int(card["level"]) - 1, -5))
 
-            # ensure only known columns are written
-            writer.writerow({
-                "question": c["question"],
-                "answer": c["answer"],
-                "level": c["level"],
-            })
+    save_deck(deck_path, cards)
 
     print("Progress saved.")
-    print(f"You got {correct} out of {len(cards)} correct!")
-    print("Returning to main menu")
+    print(f"You got {correct} correct this session.")
+    print("Returning to main menu.")
