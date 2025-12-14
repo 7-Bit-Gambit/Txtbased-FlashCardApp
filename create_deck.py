@@ -13,7 +13,7 @@ def create_deck():
     # prevent overwriting existing deck
     if deck_path.exists():
         overwrite = input(
-            "A deck with that name already exists. Overwrite? (Y/N): "
+            "A deck with that name already exists. Overwrite? Enter: Y to overwrite, enter to continue: "
         ).strip().lower()
         if overwrite != "y":
             print("Cancelled. Keeping existing deck.")
