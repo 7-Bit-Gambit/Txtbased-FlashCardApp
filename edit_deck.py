@@ -1,5 +1,5 @@
 from card_helpers import add_cards_loop
-from deck_helpers import read_deck, save_deck, choose_deck_helper
+from deck_helpers import read_deck, save_deck, choose_deck_helper, delete_deck
 
 def _print_cards(cards, max_len=60):
     if not cards:
@@ -16,22 +16,6 @@ def _print_cards(cards, max_len=60):
             a = a[:max_len - 1] + "…"
         print(f"{i:>3}. Q: {q} | A: {a} | lvl: {c['level']}")
     print()
-
-def _add_card(cards):
-    print("\nAdd card (empty question cancels)")
-    q = input("Question: ").strip()
-    if not q:
-        print("Cancelled.")
-        return False
-
-    a = input("Answer: ").strip()
-    if not a:
-        print("Answer cannot be empty. Cancelled.")
-        return False
-
-    cards.append({"question": q, "answer": a, "level": "0"})
-    print("Card added.")
-    return True
 
 def _select_card_index(cards, prompt):
     """Return index (0-based) or None if cancelled/invalid."""
@@ -144,9 +128,9 @@ def edit_deck():
                 save_deck(deck_path, cards)
 
         elif choice == "4":
-            confirm = input(f"Type DELETE to permanently delete '{deck_path.stem}': ").strip()
-            if confirm == "DELETE":
-                #delete_deck_file(deck_path)  # from datahandlers
+            confirm = input(f"Type Y to permanently delete '{deck_path.stem}': ").strip().lower()
+            if confirm == "y":
+                delete_deck(deck_path)
                 print("Deck deleted.")
                 return
             else:

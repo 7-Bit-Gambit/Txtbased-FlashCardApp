@@ -56,13 +56,9 @@ def choose_deck_helper():
 
         return decks[n - 1]
 
-def delete_deck():
-    deck = choose_deck_helper()
-    if deck is None:
-        return
-
-    print("Deleting a deck... ", deck.stem)
-    deck.unlink()
+def delete_deck(deck_path):
+    print("Deleting a deck... ", deck_path.stem)
+    deck_path.unlink()
 
 
 

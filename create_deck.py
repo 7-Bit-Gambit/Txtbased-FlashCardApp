@@ -30,7 +30,7 @@ def create_deck():
         add_cards_loop(cards)
         #counter += 1
 
-        print("Deck creation complete. You added", "cards to your deck.") #, counter
+        print("Deck creation complete. You added", len(cards), "cards to your deck.") #, counter
     else:
         print("Created empty deck.")
 
