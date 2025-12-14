@@ -43,3 +43,5 @@ if __name__ == "__main__":
     print("Welcome to your Console Based Flashcard-App")
     main_menu()
 
+### 22:08###
+
