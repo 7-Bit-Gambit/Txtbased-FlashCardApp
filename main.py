@@ -3,6 +3,7 @@ from check_knowledge_level import check_knowledge_level
 from create_deck import create_deck
 from delete_deck import delete_deck
 from learn_from_deck import learn_from_deck
+from edit_deck import edit_deck
 
 
 def main_menu():
@@ -31,6 +32,10 @@ def main_menu():
         # load level calculator
         elif selection == "4":
             check_knowledge_level()
+
+        elif selection == "5":
+            edit_deck()
+
         elif selection:
             print ("Undefined selection. \nSelect a number from 1 - 4 to continue. \n")
         else:

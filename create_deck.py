@@ -1,6 +1,8 @@
 import csv  # still needed if you use csv elsewhere
+
+from card_helpers import add_cards_loop
 from config import DECK_DIRECTORY
-from datahandlers import save_deck
+from deck_helpers import save_deck
 
 def create_deck():
     raw_name = input("Name your deck: ").strip().lower()
@@ -24,29 +26,13 @@ def create_deck():
     a = input("Would you like to populate the deck? (Y/N): ").strip().lower()
 
     cards = []
-    counter = 0
+    #counter = 0
 
     if a == "y":
-        print("Fill out the questions and answers for your deck. "
-              "Leave the question empty to finish.")
-        while True:
-            question = input("Question: ").strip()
-            if question == "":
-                break
+        add_cards_loop(cards)
+        #counter += 1
 
-            answer = input("Answer: ").strip()
-            if answer == "":
-                print("Answer cannot be empty, card skipped.")
-                continue
-
-            cards.append({
-                "question": question,
-                "answer": answer,
-                "level": "0",
-            })
-            counter += 1
-
-        print("Deck creation complete. You added", counter, "cards to your deck.")
+        print("Deck creation complete. You added", "cards to your deck.") #, counter
     else:
         print("Created empty deck.")
 

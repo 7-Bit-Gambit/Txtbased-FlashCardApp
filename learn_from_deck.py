@@ -1,5 +1,5 @@
 from deck_selector import choose_deck_helper
-from datahandlers import save_deck, read_deck
+from deck_helpers import read_deck, save_deck
 import random
 
 def learn_from_deck():
@@ -11,16 +11,23 @@ def learn_from_deck():
     print(f"\nOpening deck: {deck_path.stem}")
 
     cards = read_deck(deck_path)
+
+    # filter only for this session
+    learn_cards = [c for c in cards if int(c["level"]) < 5]
+
+    if not learn_cards:
+        print("All cards are already at level 5. Nothing to learn 🎉")
+        return
+
+    random.shuffle(learn_cards)
     correct = 0
 
-    random.shuffle(cards)
-
-    for i, card in enumerate(cards, start=1):
-        print(f"\n[{i}/{len(cards)}] Q: {card['question']}")
+    for i, card in enumerate(learn_cards, start=1):
+        print(f"\n[{i}/{len(learn_cards)}] Q: {card['question']}")
         a = input("What's the answer? ").strip()
 
         if a == "":
-            print("Learning session has been terminated.")
+            print("Learning session terminated.")
             break
 
         if a == card["answer"]:
@@ -28,12 +35,11 @@ def learn_from_deck():
             print("Correct!")
             card["level"] = str(min(int(card["level"]) + 1, 5))
         else:
-            print(f"Wrong! the answer is {card['answer']}")
-            # decrease down to -5
+            print(f"Wrong! The answer is {card['answer']}")
             card["level"] = str(max(int(card["level"]) - 1, -5))
 
     save_deck(deck_path, cards)
 
     print("Progress saved.")
-    print(f"You got {correct} correct (session).")
-    print("Returning to main menu")
+    print(f"You got {correct} correct this session.")
+    print("Returning to main menu.")
