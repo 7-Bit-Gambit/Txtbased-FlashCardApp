@@ -1,3 +1,6 @@
+"""
+Functions regarding deck handling (CSV handlers)
+"""
 from card_helpers import add_cards_loop
 from deck_helpers import read_deck, save_deck, choose_deck_helper, delete_deck
 
@@ -47,6 +50,7 @@ def _edit_cards_loop(cards):
         _print_cards(cards)
         idx = _select_card_index(cards, "Edit which card number? (Enter to exit): ")
         if idx is None:
+            print("Number is out of range. Returning to menu.")
             break
 
         card = cards[idx]
@@ -80,7 +84,7 @@ def _remove_cards_loop(cards):
             break
 
         card = cards[idx]
-        confirm = input(f"Delete card {idx+1}? Type Y to confirm: ").strip().lower()
+        confirm = input(f"Delete card {idx+1}? Type Y to confirm, or enter to cancel: ").strip().lower()
         if confirm == "y":
             cards.pop(idx)
             print("Card removed.")
@@ -105,7 +109,7 @@ def edit_deck():
     while True:
         print(f"\nDeck editor: {deck_path.stem}")
         print("1. Add card")
-        print("2. Edit cards")
+        print("2. Edit cards (use to view cards in deck)")
         print("3. Remove cards")
         print("4. Delete whole deck")  # optional
         print("(Press Enter to exit)")
@@ -128,7 +132,7 @@ def edit_deck():
                 save_deck(deck_path, cards)
 
         elif choice == "4":
-            confirm = input(f"Type Y to permanently delete '{deck_path.stem}': ").strip().lower()
+            confirm = input(f"Type Y to permanently delete, or enter to cancel '{deck_path.stem}': ").strip().lower()
             if confirm == "y":
                 delete_deck(deck_path)
                 print("Deck deleted.")

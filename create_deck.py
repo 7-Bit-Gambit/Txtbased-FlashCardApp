@@ -21,7 +21,7 @@ def create_deck():
 
     print(f"Deck {raw_name} created.")
 
-    a = input("Would you like to populate the deck? (Y/N): ").strip().lower()
+    a = input("Would you like to populate the deck? Enter 'Y' to continue: ").strip().lower()
 
     cards = []
     #counter = 0
